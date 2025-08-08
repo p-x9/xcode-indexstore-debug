@@ -27,7 +27,7 @@ extension IndexStoreOccurrence.Role {
 }
 
 extension IndexStoreOccurrence.Role {
-    public enum Bit: UInt8, CaseIterable, Codable {
+    public enum Bit: UInt8, CaseIterable {
         case declaration
         case definition
         case reference
@@ -101,5 +101,27 @@ extension IndexStoreOccurrence.Role.Bit {
         case .ibTypeOf: "ibTypeOf"
         case .specializationOf: "specializationOf"
         }
+    }
+}
+
+extension IndexStoreOccurrence.Role.Bit: Codable {
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+        guard let kind = Self(string: string) else {
+            throw DecodingError
+                .dataCorrupted(
+                    DecodingError.Context(
+                        codingPath: decoder.codingPath,
+                        debugDescription: "Invalid kind string \(string)"
+                    )
+                )
+        }
+        self = kind
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(string)
     }
 }

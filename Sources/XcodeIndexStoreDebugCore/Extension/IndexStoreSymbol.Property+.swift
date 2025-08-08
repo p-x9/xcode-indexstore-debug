@@ -27,7 +27,7 @@ extension IndexStoreSymbol.Property {
 }
 
 extension IndexStoreSymbol.Property {
-    public enum Bit: UInt8, CaseIterable, Codable {
+    public enum Bit: UInt8, CaseIterable {
         case generic
         case templatePartialSpecialization
         case templateSpecialization
@@ -74,5 +74,27 @@ extension IndexStoreSymbol.Property.Bit {
         case .protocolInterface: "protocolInterface"
         case .swiftAsync: "swiftAsync"
         }
+    }
+}
+
+extension IndexStoreSymbol.Property.Bit: Codable {
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+        guard let kind = Self(string: string) else {
+            throw DecodingError
+                .dataCorrupted(
+                    DecodingError.Context(
+                        codingPath: decoder.codingPath,
+                        debugDescription: "Invalid kind string \(string)"
+                    )
+                )
+        }
+        self = kind
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(string)
     }
 }
