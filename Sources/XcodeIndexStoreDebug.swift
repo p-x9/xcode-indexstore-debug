@@ -7,8 +7,4 @@
 import ArgumentParser
 
 @main
-struct XcodeIndexStoreDebug: ParsableCommand {
-    mutating func run() throws {
-        print("Hello, world!")
-    }
-}
+struct XcodeIndexStoreDebug: ParsableCommand {}
