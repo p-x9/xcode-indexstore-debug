@@ -10,8 +10,10 @@ import Foundation
 import SwiftIndexStore
 
 extension IndexStoreOccurrence {
-    public func matches(filter: Filter) -> Bool {
-        switch filter {
+    public func matches(
+        filterCondition: FilterCondition
+    ) -> Bool {
+        switch filterCondition {
         case .usr(let pattern):
             guard symbol.name != nil else { return false }
             return symbol.usr?.range(of: pattern, options: .regularExpression) != nil
@@ -41,7 +43,12 @@ extension IndexStoreOccurrence {
 }
 
 extension IndexStoreOccurrence {
+    public func matches(filter: Filter) -> Bool {
+        filter.conditions
+            .allSatisfy(matches(filterCondition:))
+    }
+
     public func matches(filters: [Filter]) -> Bool {
-        filters.allSatisfy(matches(filter:))
+        filters.contains(where: matches(filter:))
     }
 }
