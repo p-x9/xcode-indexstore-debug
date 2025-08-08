@@ -38,5 +38,12 @@ let package = Package(
                 .product(name: "SwiftIndexStore", package: "swift-indexstore"),
             ]
         ),
+        .plugin(
+            name: "IndexStoreDebugBuildToolPlugin",
+            capability: .buildTool(),
+            dependencies: [
+                "xcode-indexstore-debug"
+            ]
+        ),
     ]
 )
