@@ -7,6 +7,12 @@ let package = Package(
     platforms: [
         .macOS(.v13)
     ],
+    products: [
+        .plugin(
+            name: "IndexStoreDebugBuildToolPlugin",
+            targets: ["IndexStoreDebugBuildToolPlugin"]
+        ),
+    ],
     dependencies: [
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
