@@ -1,5 +1,5 @@
 {
-  "originHash" : "13030717c2cb23335d47886cd5e9485958b6d84aaf5d6365de59db204faad00d",
+  "originHash" : "1e72fdfeec2b064562bbbb835b155b5528631454a9f80dd054505e78d9c4b2f2",
   "pins" : [
     {
       "identity" : "swift-argument-parser",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "309a47b2b1d9b5e991f36961c983ecec72275be3",
         "version" : "1.6.1"
+      }
+    },
+    {
+      "identity" : "swift-indexstore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kateinoigakukun/swift-indexstore.git",
+      "state" : {
+        "revision" : "055264ececff53c1265c2b7ee3513053b02604de",
+        "version" : "0.4.0"
       }
     }
   ],

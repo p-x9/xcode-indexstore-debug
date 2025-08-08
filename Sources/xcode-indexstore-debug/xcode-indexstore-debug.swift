@@ -7,4 +7,4 @@
 import ArgumentParser
 
 @main
-struct XcodeIndexStoreDebug: ParsableCommand {}
+struct xcode_indexstore_debug: ParsableCommand {}
