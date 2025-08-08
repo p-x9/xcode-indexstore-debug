@@ -20,6 +20,9 @@ extension IndexStoreOccurrence {
             guard self.symbol.name != nil else { return false }
             return symbol.name?.range(of: pattern, options: .regularExpression) != nil
 
+        case .system(let isSystem):
+            return location.isSystem == isSystem
+
         case .role(let roles):
             return roles.allSatisfy {
                 self.roles.bits.contains($0)

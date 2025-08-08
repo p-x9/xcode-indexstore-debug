@@ -12,6 +12,7 @@ import SwiftIndexStore
 public enum Filter: Codable {
     case usr(pattern: String)
     case name(pattern: String)
+    case system(Bool)
     case role([IndexStoreOccurrence.Role.Bit])
     case kind(IndexStoreSymbol.Kind)
     case subKind(IndexStoreSymbol.SubKind)
@@ -22,6 +23,7 @@ extension Filter {
     enum CodingKeys: String, CodingKey {
         case user
         case name
+        case system
         case role
         case kind
         case subKind
@@ -35,6 +37,8 @@ extension Filter {
             try container.encode(pattern, forKey: .user)
         case .name(let pattern):
             try container.encode(pattern, forKey: .name)
+        case .system(let isSystem):
+            try container.encode(isSystem, forKey: .system)
         case .role(let roles):
             try container.encode(roles, forKey: .role)
         case .kind(let kind):
@@ -55,6 +59,10 @@ extension Filter {
         }
         if let pattern = try container.decodeIfPresent(String.self, forKey: .name) {
             self = .name(pattern: pattern)
+            return
+        }
+        if let isSystem = try container.decodeIfPresent(Bool.self, forKey: .system) {
+            self = .system(isSystem)
             return
         }
         if let roles = try container.decodeIfPresent([IndexStoreOccurrence.Role.Bit].self, forKey: .role) {
