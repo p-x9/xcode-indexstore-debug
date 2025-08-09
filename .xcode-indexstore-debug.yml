@@ -1,0 +1,105 @@
+reportType: warning
+filters:
+  - conditions:
+    - system: false
+    - role:
+      - definition
+    - kind: struct
+
+  - conditions:
+    - system: false
+    - role:
+      - definition
+    - kind: class
+
+  - conditions:
+    - system: false
+    - role:
+      - definition
+    - kind: protocol
+
+#  - conditions:
+#    - user: .*
+#    - name: .*
+#    - system: false
+#    - role:
+#      - declaration
+#      - definition
+#      - reference
+#      - read
+#      - write
+#      - call
+#      - dynamic
+#      - addressOf
+#      - implicit
+#      - childOf
+#      - baseOf
+#      - overrideOf
+#      - receivedBy
+#      - calledBy
+#      - extendedBy
+#      - accessorOf
+#      - containedBy
+#      - ibTypeOf
+#      - specializationOf
+#    - kind: unknown
+#    - kind: module
+#    - kind: namespace
+#    - kind: namespaceAlias
+#    - kind: macro
+#    - kind: enum
+#    - kind: struct
+#    - kind: class
+#    - kind: protocol
+#    - kind: extension
+#    - kind: union
+#    - kind: typealias
+#    - kind: function
+#    - kind: variable
+#    - kind: field
+#    - kind: enumConstant
+#    - kind: instanceMethod
+#    - kind: classMethod
+#    - kind: staticMethod
+#    - kind: instanceProperty
+#    - kind: classProperty
+#    - kind: staticProperty
+#    - kind: constructor
+#    - kind: destructor
+#    - kind: conversionFunction
+#    - kind: parameter
+#    - kind: using
+#    - kind: concept
+#    - kind: commentTag
+#    - subKind: none
+#    - subKind: cxxCopyConstructor
+#    - subKind: cxxMoveConstructor
+#    - subKind: accessorGetter
+#    - subKind: accessorSetter
+#    - subKind: usingTypeName
+#    - subKind: usingValue
+#    - subKind: usingEnum
+#    - subKind: swiftAccessorWillSet
+#    - subKind: swiftAccessorDidSet
+#    - subKind: swiftAccessorAddressor
+#    - subKind: swiftAccessorMutableAddressor
+#    - subKind: swiftExtensionOfStruct
+#    - subKind: swiftExtensionOfClass
+#    - subKind: swiftExtensionOfEnum
+#    - subKind: swiftExtensionOfProtocol
+#    - subKind: swiftPrefixOperator
+#    - subKind: swiftPostfixOperator
+#    - subKind: swiftInfixOperator
+#    - subKind: swiftSubscript
+#    - subKind: swiftAssociatedtype
+#    - subKind: swiftGenericTypeParam
+#    - subKind: swiftAccessorRead
+#    - subKind: swiftAccessorModify
+#    - subKind: swiftAccessorInit
+#    - language: c
+#    - language: objc
+#    - language: cxx
+#    - language: swift
+
+excludedFiles:
+- .*/DerivedData/.*
