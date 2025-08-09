@@ -102,3 +102,39 @@ extension IndexStoreSymbol.Kind: Codable {
         try container.encode(string)
     }
 }
+
+extension IndexStoreSymbol.Kind: @retroactive CaseIterable {
+    public static var allCases: [IndexStoreSymbol.Kind] {
+        [
+            .unknown,
+            .module,
+            .namespace,
+            .namespaceAlias,
+            .macro,
+            .`enum`,
+            .`struct`,
+            .`class`,
+            .`protocol`,
+            .`extension`,
+            .union,
+            .`typealias`,
+            .function,
+            .variable,
+            .field,
+            .enumConstant,
+            .instanceMethod,
+            .classMethod,
+            .staticMethod,
+            .instanceProperty,
+            .classProperty,
+            .staticProperty,
+            .constructor,
+            .destructor,
+            .conversionFunction,
+            .parameter,
+            .using,
+            .concept,
+            .commentTag,
+        ]
+    }
+}

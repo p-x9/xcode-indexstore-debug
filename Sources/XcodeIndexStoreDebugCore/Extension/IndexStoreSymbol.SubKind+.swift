@@ -94,3 +94,35 @@ extension IndexStoreSymbol.SubKind: Codable {
         try container.encode(string)
     }
 }
+
+extension IndexStoreSymbol.SubKind: @retroactive CaseIterable {
+    public static var allCases: [IndexStoreSymbol.SubKind] {
+        [
+            .none,
+            .cxxCopyConstructor,
+            .cxxMoveConstructor,
+            .accessorGetter,
+            .accessorSetter,
+            .usingTypeName,
+            .usingValue,
+            .usingEnum,
+            .swiftAccessorWillSet,
+            .swiftAccessorDidSet,
+            .swiftAccessorAddressor,
+            .swiftAccessorMutableAddressor,
+            .swiftExtensionOfStruct,
+            .swiftExtensionOfClass,
+            .swiftExtensionOfEnum,
+            .swiftExtensionOfProtocol,
+            .swiftPrefixOperator,
+            .swiftPostfixOperator,
+            .swiftInfixOperator,
+            .swiftSubscript,
+            .swiftAssociatedtype,
+            .swiftGenericTypeParam,
+            .swiftAccessorRead,
+            .swiftAccessorModify,
+            .swiftAccessorInit,
+        ]
+    }
+}

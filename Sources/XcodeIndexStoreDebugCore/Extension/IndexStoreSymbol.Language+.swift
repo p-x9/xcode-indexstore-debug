@@ -52,3 +52,14 @@ extension IndexStoreSymbol.Language: Codable {
         try container.encode(string)
     }
 }
+
+extension IndexStoreSymbol.Language: @retroactive CaseIterable {
+    public static var allCases: [IndexStoreSymbol.Language] {
+        [
+            .c,
+            .objc,
+            .cxx,
+            .swift,
+        ]
+    }
+}
