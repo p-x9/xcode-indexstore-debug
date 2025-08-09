@@ -10,12 +10,25 @@ import Foundation
 import SwiftIndexStore
 
 public enum FilterCondition: Codable {
+    /// Filters by matching the Unified Symbol Resolution (USR) string with the given regular expression pattern.
     case usr(pattern: String)
+
+    /// Filters by matching the symbol name with the given regular expression pattern.
     case name(pattern: String)
+
+    /// Filters by whether the occurrence is in a system location (`true`) or not (`false`).
     case system(Bool)
+
+    /// Filters by matching all specified roles of the occurrence.
     case role([IndexStoreOccurrence.Role.Bit])
+
+    /// Filters by the kind of the symbol.
     case kind(IndexStoreSymbol.Kind)
+
+    /// Filters by the sub-kind of the symbol.
     case subKind(IndexStoreSymbol.SubKind)
+
+    /// Filters by the programming language of the symbol.
     case language(IndexStoreSymbol.Language)
 }
 
