@@ -62,7 +62,7 @@ extension IndexStoreReporter {
         let symbol = occurrence.symbol
         var contents: [String] = []
         if let usr = symbol.usr {
-            contents.append("user: \(usr)")
+            contents.append("[indexstore] user: \(usr)")
         }
 
         if let name = symbol.name {
