@@ -29,7 +29,7 @@ public struct XcodeReporter: ReporterProtocol {
                 print("\(file): \(type): \(content)")
             }
         } else {
-            print("\(type): \(report.content)")
+            print("\(type): \(content)")
         }
     }
 }

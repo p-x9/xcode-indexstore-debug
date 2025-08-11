@@ -59,12 +59,26 @@ extension IndexStoreReporter {
 
 extension IndexStoreReporter {
     private func report(for occurrence: IndexStoreOccurrence) {
+        let symbol = occurrence.symbol
+        var contents: [String] = []
+        if let usr = symbol.usr {
+            contents.append("user: \(usr)")
+        }
+
+        if let name = symbol.name {
+            contents.append("name: \(name)")
+        }
+        contents.append("roles: [\(occurrence.roles.bits.map(\.string).joined(separator: ", "))]")
+        contents.append("kind: \(symbol.kind.string)")
+        contents.append("subKind: \(symbol.subKind.string)")
+        contents.append("lang: \(symbol.language.string)")
+
         reporter.report(
             file: occurrence.location.path,
             line: numericCast(occurrence.location.line),
             column: numericCast(occurrence.location.column),
-            type: reportType,
-            content: "usr: \(occurrence.symbol.usr!)"
+            type: .warning,
+            content: contents.joined(separator: ", ")
         )
     }
 
