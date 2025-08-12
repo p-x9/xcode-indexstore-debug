@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SourceReporter
 import XcodeIndexStoreDebugCore
 
 struct Config: Codable {

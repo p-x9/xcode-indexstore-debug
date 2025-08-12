@@ -26,6 +26,10 @@ let package = Package(
             url: "https://github.com/jpsim/Yams.git",
             from: "5.0.1"
         ),
+        .package(
+            url: "https://github.com/p-x9/swift-source-reporter.git",
+            from: "0.1.0"
+        ),
     ],
     targets: [
         .executableTarget(
@@ -42,6 +46,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SwiftIndexStore", package: "swift-indexstore"),
+                .product(name: "SourceReporter", package: "swift-source-reporter"),
             ]
         ),
         .plugin(

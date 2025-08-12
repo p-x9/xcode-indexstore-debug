@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftIndexStore
+import SourceReporter
 
 public final class IndexStoreReporter {
     public let reportType: ReportType

@@ -2,6 +2,7 @@ import Foundation
 import ArgumentParser
 import SwiftIndexStore
 import Yams
+import SourceReporter
 import XcodeIndexStoreDebugCore
 
 struct xcode_indexstore_debug: ParsableCommand {

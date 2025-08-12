@@ -8,6 +8,7 @@
 
 import Foundation
 import ArgumentParser
+import SourceReporter
 import XcodeIndexStoreDebugCore
 
-extension ReportType: ExpressibleByArgument {}
+extension ReportType: @retroactive ExpressibleByArgument {}
