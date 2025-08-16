@@ -17,6 +17,16 @@ This project is designed for developers who want to analyze, filter, and report 
 
 ## Usage
 
+### Plugin
+
+Add the plugin to your `Package.swift`:
+
+```swift
+.plugins([
+    .plugin(name: "IndexStoreDebugBuildToolPlugin", package: "xcode-indexstore-debug")
+])
+```
+
 ### Command Line
 
 Run the tool with:
@@ -46,16 +56,6 @@ filters:
       - language: ["swift"]
 excludedFiles:
   - ".*/DerivedData/.*"
-```
-
-## Plugin Usage
-
-Add the plugin to your `Package.swift`:
-
-```swift
-.plugins([
-    .plugin(name: "IndexStoreDebugBuildToolPlugin")
-])
 ```
 
 ## License
