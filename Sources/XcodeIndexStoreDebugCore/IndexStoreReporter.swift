@@ -52,7 +52,7 @@ extension IndexStoreReporter {
 
 extension IndexStoreReporter {
     private func reportIfNeeded(for occurrence: IndexStoreOccurrence) {
-        if shoudlReport(for: occurrence) {
+        if shouldReport(for: occurrence) {
             report(for: occurrence)
         }
     }
@@ -83,11 +83,12 @@ extension IndexStoreReporter {
         )
     }
 
-    private func shoudlReport(for occurrence: IndexStoreOccurrence) -> Bool {
+    private func shouldReport(for occurrence: IndexStoreOccurrence) -> Bool {
         if let path = occurrence.location.path,
            excludedFiles.contains(where: { path.matches(pattern: $0) }) {
             return false
         }
+        if filters.isEmpty { return true }
         return occurrence.matches(filters: filters)
     }
 }
