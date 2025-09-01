@@ -53,6 +53,7 @@ extension IndexStoreReporter {
         let units = indexStore.units(includeSystem: false)
 
         try await units.concurrentForEach { unit in
+            guard try self.shouldReport(for: unit) else { return }
             try self.indexStore.forEachRecordDependencies(for: unit) { dependency in
                 guard case let .record(record) = dependency else {
                     return true
@@ -100,11 +101,18 @@ extension IndexStoreReporter {
         )
     }
 
-    private func shouldReport(for occurrence: IndexStoreOccurrence) -> Bool {
-        if let path = occurrence.location.path,
-           excludedFiles.contains(where: { path.matches(pattern: $0) }) {
+    private func shouldReport(for unit: IndexStoreUnit) throws -> Bool {
+        let path = try indexStore.mainFilePath(for: unit)
+
+        if excludedFiles.contains(
+            where: { path?.matches(pattern: $0) ?? true }
+        ) {
             return false
         }
+        return true
+    }
+
+    private func shouldReport(for occurrence: IndexStoreOccurrence) -> Bool {
         if filters.isEmpty { return true }
         return occurrence.matches(filters: filters)
     }
