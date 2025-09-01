@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import SwiftIndexStore
+@preconcurrency import SwiftIndexStore
 
-public enum FilterCondition: Codable {
+public enum FilterCondition: Sendable, Codable {
     /// Filters by matching the Unified Symbol Resolution (USR) string with the given regular expression pattern.
     case usr(pattern: String)
 

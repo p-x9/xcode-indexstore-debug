@@ -27,7 +27,7 @@ extension IndexStoreOccurrence.Role {
 }
 
 extension IndexStoreOccurrence.Role {
-    public enum Bit: UInt8, CaseIterable {
+    public enum Bit: UInt8, CaseIterable, Sendable {
         case declaration
         case definition
         case reference

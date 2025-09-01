@@ -7,19 +7,19 @@
 //
 
 import Foundation
-import SwiftIndexStore
+@preconcurrency import SwiftIndexStore
 import SourceReporter
 
-public final class IndexStoreReporter {
+public final class IndexStoreReporter: Sendable {
     public let reportType: ReportType
-    public let reporter: any ReporterProtocol
+    public let reporter: any (ReporterProtocol & Sendable)
     public let filters: [Filter]
     public let excludedFiles: [String]
     public let indexStore: IndexStore
 
     public init(
         reportType: ReportType,
-        reporter: any ReporterProtocol,
+        reporter: any (ReporterProtocol & Sendable),
         filters: [Filter],
         excludedFiles: [String],
         indexStore: IndexStore
@@ -47,6 +47,23 @@ extension IndexStoreReporter {
             } // forEachRecordDependencies
             return true
         } // forEachUnits
+    }
+
+    public func runConcurrently() async throws {
+        let units = indexStore.units(includeSystem: false)
+
+        try await units.concurrentForEach { unit in
+            try self.indexStore.forEachRecordDependencies(for: unit) { dependency in
+                guard case let .record(record) = dependency else {
+                    return true
+                }
+                try self.indexStore.forEachOccurrences(for: record) { occurrence in
+                    self.reportIfNeeded(for: occurrence)
+                    return true
+                } // forEachOccurrences
+                return true
+            } // forEachRecordDependencies
+        }
     }
 }
 
@@ -90,5 +107,20 @@ extension IndexStoreReporter {
         }
         if filters.isEmpty { return true }
         return occurrence.matches(filters: filters)
+    }
+}
+
+extension Array {
+    fileprivate func concurrentForEach(
+        _ body: @escaping @Sendable (Element) async throws -> Void
+    ) async throws where Element: Sendable {
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            for element in self {
+                group.addTask {
+                    try await body(element)
+                }
+            }
+            try await group.waitForAll()
+        }
     }
 }
