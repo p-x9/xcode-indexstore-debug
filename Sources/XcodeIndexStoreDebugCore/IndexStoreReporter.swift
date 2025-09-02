@@ -35,7 +35,11 @@ public final class IndexStoreReporter: Sendable {
 extension IndexStoreReporter {
     public func run() throws {
         try indexStore.forEachUnits(includeSystem: false) { unit in
+            guard try shouldReport(for: unit) else { return true }
             try indexStore.forEachRecordDependencies(for: unit) { dependency in
+                guard shouldReport(for: dependency) else {
+                    return true
+                }
                 guard case let .record(record) = dependency else {
                     return true
                 }
@@ -55,6 +59,9 @@ extension IndexStoreReporter {
         try await units.concurrentForEach { unit in
             guard try self.shouldReport(for: unit) else { return }
             try self.indexStore.forEachRecordDependencies(for: unit) { dependency in
+                guard self.shouldReport(for: dependency) else {
+                    return true
+                }
                 guard case let .record(record) = dependency else {
                     return true
                 }
@@ -110,6 +117,10 @@ extension IndexStoreReporter {
             return false
         }
         return true
+    }
+
+    private func shouldReport(for dependency: IndexStoreUnit.Dependency) -> Bool {
+        !excludedFiles.contains(where: { dependency.filePath?.matches(pattern: $0) ?? true })
     }
 
     private func shouldReport(for occurrence: IndexStoreOccurrence) -> Bool {
