@@ -5,6 +5,7 @@ import Yams
 import SourceReporter
 import XcodeIndexStoreDebugCore
 
+@main
 struct xcode_indexstore_debug: ParsableCommand {
     static let configuration: CommandConfiguration = .init(
         commandName: "xcode-indexstore-debug",
@@ -57,6 +58,24 @@ struct xcode_indexstore_debug: ParsableCommand {
     }
 }
 
+@available(macOS 10.15, macCatalyst 13, iOS 13, tvOS 13, watchOS 6, *)
+extension xcode_indexstore_debug: AsyncParsableCommand {
+    mutating func run() async throws {
+        guard let indexStore else {
+            fatalError("No IndexStore found at specified path or in environment variable BUILD_DIR")
+        }
+        try readConfig()
+        let reporter = IndexStoreReporter(
+            reportType: reportType ?? .warning,
+            reporter: XcodeReporter(),
+            filters: filters,
+            excludedFiles: excludedFiles,
+            indexStore: indexStore
+        )
+        try await reporter.runConcurrently()
+    }
+}
+
 extension xcode_indexstore_debug {
     private mutating func readConfig() throws {
         guard FileManager.default.fileExists(atPath: config) else {
@@ -90,4 +109,4 @@ extension xcode_indexstore_debug {
     }
 }
 
-xcode_indexstore_debug.main()
+extension XcodeReporter: @retroactive @unchecked Sendable {}

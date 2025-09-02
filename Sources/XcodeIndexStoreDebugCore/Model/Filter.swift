@@ -9,7 +9,7 @@
 import Foundation
 import SwiftIndexStore
 
-public struct Filter: Codable {
+public struct Filter: Sendable, Codable {
     public var conditions: [FilterCondition]
 
     public init(conditions: [FilterCondition]) {
